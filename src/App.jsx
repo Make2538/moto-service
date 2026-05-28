@@ -21,7 +21,9 @@ function App() {
       date: new Date().toLocaleDateString(),
     };
 
-    const updated = [newService, ...services];
+    const updated = [...services, newService].sort(
+  (a, b) => Number(a.mileage) - Number(b.mileage)
+);
 
     setServices(updated);
 
