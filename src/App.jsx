@@ -111,15 +111,7 @@ function App() {
       }}
     >
       <div style={{ textAlign: "center" }}>
-        <img
-          src="/logo.png"
-          alt="logo"
-          style={{
-            width: 100,
-            marginBottom: 10,
-          }}
-        />
-
+        
         <h1>Service Forza350</h1>
       </div>
 
