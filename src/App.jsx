@@ -110,24 +110,50 @@ function App() {
       <h2 style={{ marginTop: 30 }}>ประวัติ</h2>
 
       {services.map((item, index) => (
-        <div
-          key={index}
-          style={{
-            background: "#1e1e1e",
-            padding: 15,
-            borderRadius: 15,
-            marginBottom: 15,
-          }}
-        >
-          <h3>{item.mileage} km</h3>
+  <div
+    key={index}
+    style={{
+      background: "#1e1e1e",
+      padding: 15,
+      borderRadius: 15,
+      marginBottom: 15,
+    }}
+  >
+    <h3>{item.mileage} km</h3>
 
-          <p>{item.detail}</p>
+    <p>{item.detail}</p>
 
-          <small style={{ color: "#aaa" }}>
-            {item.date}
-          </small>
-        </div>
-      ))}
+    <small style={{ color: "#aaa" }}>
+      {item.date}
+    </small>
+
+    <br /><br />
+
+    <button
+      onClick={() => {
+        const updated = services.filter(
+          (_, i) => i !== index
+        );
+
+        setServices(updated);
+
+        localStorage.setItem(
+          "services",
+          JSON.stringify(updated)
+        );
+      }}
+      style={{
+        background: "#ff3b30",
+        border: "none",
+        color: "white",
+        padding: "10px 15px",
+        borderRadius: 10,
+      }}
+    >
+      ลบ
+    </button>
+  </div>
+))}
     </div>
   );
 }
