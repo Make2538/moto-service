@@ -34,7 +34,7 @@ function App() {
   return (
     <div
       style={{
-        background: "#f5f5f5",
+        background: "#ee2525",
         minHeight: "100vh",
         color: "white",
         padding: 20,
@@ -143,7 +143,7 @@ function App() {
         );
       }}
       style={{
-        background: "#white",
+        background: "#111",
         border: "none",
         color: "white",
         padding: "10px 15px",
