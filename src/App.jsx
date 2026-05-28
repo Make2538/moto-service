@@ -110,12 +110,12 @@ function App() {
           src="/logo.png"
           alt="logo"
           style={{
-            width: 120,
+            width: 100,
             marginBottom: 10,
           }}
         />
 
-        <h1>Motorcycle Service</h1>
+        <h1>Service Forza350</h1>
       </div>
 
       <div
