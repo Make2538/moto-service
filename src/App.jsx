@@ -113,14 +113,75 @@ function App() {
 
       {services.map((item, index) => (
   <div
-  key={index}
-  style={{
-    background: "white",
-    padding: 12,
-    borderRadius: 12,
-    marginBottom: 10,
-    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-  }}
+    key={index}
+    style={{
+      background: "white",
+      padding: 10,
+      borderRadius: 10,
+      marginBottom: 8,
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
+    }}
+  >
+    <div>
+      <div
+        style={{
+          fontSize: 18,
+          fontWeight: "bold",
+        }}
+      >
+        {item.mileage} km
+      </div>
+
+      <div
+        style={{
+          fontSize: 14,
+          color: "#666",
+          marginTop: 3,
+        }}
+      >
+        {item.detail}
+      </div>
+
+      <div
+        style={{
+          fontSize: 12,
+          color: "#999",
+          marginTop: 3,
+        }}
+      >
+        {item.date}
+      </div>
+    </div>
+
+    <button
+      onClick={() => {
+        const updated = services.filter(
+          (_, i) => i !== index
+        );
+
+        setServices(updated);
+
+        localStorage.setItem(
+          "services",
+          JSON.stringify(updated)
+        );
+      }}
+      style={{
+        background: "#ff3b30",
+        border: "none",
+        color: "white",
+        padding: "6px 10px",
+        borderRadius: 8,
+        fontSize: 12,
+      }}
+    >
+      ลบ
+    </button>
+  </div>
+))}
 >
   >
     <h3 style={{ margin: 0 }}>
