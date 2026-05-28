@@ -4,19 +4,23 @@ function App() {
   const [services, setServices] = useState([]);
   const [mileage, setMileage] = useState("");
   const [detail, setDetail] = useState("");
-  const [currentMileage, setCurrentMileage] = useState("");
-  const [editIndex, setEditIndex] = useState(null);
+  const [currentMileage, setCurrentMileage] =
+    useState("");
+  const [editIndex, setEditIndex] =
+    useState(null);
 
   useEffect(() => {
-    const data = localStorage.getItem("services");
+    const data =
+      localStorage.getItem("services");
 
     if (data) {
       setServices(JSON.parse(data));
     }
 
-    const current = localStorage.getItem(
-      "currentMileage"
-    );
+    const current =
+      localStorage.getItem(
+        "currentMileage"
+      );
 
     if (current) {
       setCurrentMileage(current);
@@ -46,7 +50,8 @@ function App() {
 
     updated.sort(
       (a, b) =>
-        Number(a.mileage) - Number(b.mileage)
+        Number(a.mileage) -
+        Number(b.mileage)
     );
 
     setServices(updated);
@@ -274,6 +279,22 @@ function App() {
               }}
             >
               {item.date}
+            </div>
+
+            <div
+              style={{
+                fontSize: 12,
+                color: "#ff3b30",
+                marginTop: 4,
+                fontWeight: "bold",
+              }}
+            >
+              ผ่านมาแล้ว{" "}
+              {Number(currentMileage) -
+                Number(
+                  item.mileage
+                )}{" "}
+              km
             </div>
           </div>
 
