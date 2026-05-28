@@ -4,12 +4,22 @@ function App() {
   const [services, setServices] = useState([]);
   const [mileage, setMileage] = useState("");
   const [detail, setDetail] = useState("");
+  const [currentMileage, setCurrentMileage] = useState("");
+  const [editIndex, setEditIndex] = useState(null);
 
   useEffect(() => {
     const data = localStorage.getItem("services");
 
     if (data) {
       setServices(JSON.parse(data));
+    }
+
+    const current = localStorage.getItem(
+      "currentMileage"
+    );
+
+    if (current) {
+      setCurrentMileage(current);
     }
   }, []);
 
@@ -22,8 +32,21 @@ function App() {
       date: new Date().toLocaleDateString(),
     };
 
-    const updated = [...services, newService].sort(
-      (a, b) => Number(a.mileage) - Number(b.mileage)
+    let updated = [];
+
+    if (editIndex !== null) {
+      updated = [...services];
+
+      updated[editIndex] = newService;
+
+      setEditIndex(null);
+    } else {
+      updated = [...services, newService];
+    }
+
+    updated.sort(
+      (a, b) =>
+        Number(a.mileage) - Number(b.mileage)
     );
 
     setServices(updated);
@@ -49,6 +72,28 @@ function App() {
       JSON.stringify(updated)
     );
   };
+
+  const editService = (index) => {
+    setMileage(services[index].mileage);
+
+    setDetail(services[index].detail);
+
+    setEditIndex(index);
+  };
+
+  const saveCurrentMileage = (value) => {
+    setCurrentMileage(value);
+
+    localStorage.setItem(
+      "currentMileage",
+      value
+    );
+  };
+
+  const latestService =
+    services.length > 0
+      ? services[services.length - 1]
+      : null;
 
   return (
     <div
@@ -82,9 +127,51 @@ function App() {
           marginBottom: 20,
         }}
       >
+        <h3>เลขไมล์ปัจจุบัน</h3>
+
         <input
           type="number"
-          placeholder="เลขไมล์"
+          placeholder="เลขไมล์ปัจจุบัน"
+          value={currentMileage}
+          onChange={(e) =>
+            saveCurrentMileage(
+              e.target.value
+            )
+          }
+          style={{
+            width: "100%",
+            padding: 12,
+            borderRadius: 10,
+            border: "none",
+            marginBottom: 15,
+            boxSizing: "border-box",
+          }}
+        />
+
+        {latestService && (
+          <div
+            style={{
+              marginBottom: 15,
+              color: "#ddd",
+            }}
+          >
+            ล่าสุดทำที่{" "}
+            {latestService.mileage} km
+
+            <br />
+
+            ใช้งานไปแล้ว{" "}
+            {Number(currentMileage) -
+              Number(
+                latestService.mileage
+              )}{" "}
+            km
+          </div>
+        )}
+
+        <input
+          type="number"
+          placeholder="เลขไมล์ตอน Service"
           value={mileage}
           onChange={(e) =>
             setMileage(e.target.value)
@@ -123,13 +210,18 @@ function App() {
             marginTop: 15,
             borderRadius: 10,
             border: "none",
-            background: "#ff3b30",
+            background:
+              editIndex !== null
+                ? "#ff9500"
+                : "#ff3b30",
             color: "white",
             fontSize: 16,
             fontWeight: "bold",
           }}
         >
-          บันทึก Service
+          {editIndex !== null
+            ? "บันทึกการแก้ไข"
+            : "บันทึก Service"}
         </button>
       </div>
 
@@ -146,7 +238,8 @@ function App() {
             borderRadius: 10,
             marginBottom: 8,
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent:
+              "space-between",
             alignItems: "center",
             boxShadow:
               "0 1px 4px rgba(0,0,0,0.08)",
@@ -184,21 +277,44 @@ function App() {
             </div>
           </div>
 
-          <button
-            onClick={() =>
-              deleteService(index)
-            }
+          <div
             style={{
-              background: "#111",
-              border: "none",
-              color: "white",
-              padding: "6px 10px",
-              borderRadius: 8,
-              fontSize: 12,
+              display: "flex",
+              gap: 5,
             }}
           >
-            ลบ
-          </button>
+            <button
+              onClick={() =>
+                editService(index)
+              }
+              style={{
+                background: "#007aff",
+                border: "none",
+                color: "white",
+                padding: "6px 10px",
+                borderRadius: 8,
+                fontSize: 12,
+              }}
+            >
+              แก้
+            </button>
+
+            <button
+              onClick={() =>
+                deleteService(index)
+              }
+              style={{
+                background: "#111",
+                border: "none",
+                color: "white",
+                padding: "6px 10px",
+                borderRadius: 8,
+                fontSize: 12,
+              }}
+            >
+              ลบ
+            </button>
+          </div>
         </div>
       ))}
     </div>
