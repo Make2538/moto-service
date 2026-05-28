@@ -113,17 +113,29 @@ function App() {
 
       {services.map((item, index) => (
   <div
-    key={index}
-    style={{
-      background: "#1e1e1e",
-      padding: 15,
-      borderRadius: 15,
-      marginBottom: 15,
-    }}
+  key={index}
+  style={{
+    background: "white",
+    padding: 12,
+    borderRadius: 12,
+    marginBottom: 10,
+    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+  }}
+>
   >
-    <h3>{item.mileage} km</h3>
+    <h3 style={{ margin: 0 }}>
+  {item.mileage} km
+</h3>
 
-    <p>{item.detail}</p>
+    <p
+  style={{
+    marginTop: 8,
+    marginBottom: 8,
+    color: "#555",
+  }}
+>
+  {item.detail}
+</p>
 
     <small style={{ color: "#aaa" }}>
       {item.date}
@@ -148,7 +160,7 @@ function App() {
         background: "#111",
         border: "none",
         color: "white",
-        padding: "10px 15px",
+        padding: "6px 12px",
         borderRadius: 10,
       }}
     >
