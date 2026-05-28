@@ -13,6 +13,8 @@ function App() {
   }, []);
 
   const saveService = () => {
+    if (!mileage || !detail) return;
+
     const newService = {
       mileage,
       detail,
@@ -30,38 +32,100 @@ function App() {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>ประวัติ Service รถ</h1>
+    <div
+      style={{
+        background: "#111",
+        minHeight: "100vh",
+        color: "white",
+        padding: 20,
+        fontFamily: "sans-serif",
+      }}
+    >
+      <div style={{ textAlign: "center" }}>
+        <img
+          src="/logo.png"
+          alt="logo"
+          style={{
+            width: 120,
+            marginBottom: 10,
+          }}
+        />
 
-      <input
-        type="number"
-        placeholder="เลขไมล์"
-        value={mileage}
-        onChange={(e) => setMileage(e.target.value)}
-      />
+        <h1>Motorcycle Service</h1>
+      </div>
 
-      <br /><br />
+      <div
+        style={{
+          background: "#1e1e1e",
+          padding: 20,
+          borderRadius: 15,
+          marginTop: 20,
+        }}
+      >
+        <input
+          type="number"
+          placeholder="เลขไมล์"
+          value={mileage}
+          onChange={(e) => setMileage(e.target.value)}
+          style={{
+            width: "100%",
+            padding: 12,
+            borderRadius: 10,
+            border: "none",
+            marginBottom: 10,
+          }}
+        />
 
-      <textarea
-        placeholder="ทำอะไรบ้าง"
-        value={detail}
-        onChange={(e) => setDetail(e.target.value)}
-      />
+        <textarea
+          placeholder="ทำอะไรบ้าง"
+          value={detail}
+          onChange={(e) => setDetail(e.target.value)}
+          style={{
+            width: "100%",
+            padding: 12,
+            borderRadius: 10,
+            border: "none",
+            height: 100,
+          }}
+        />
 
-      <br /><br />
+        <button
+          onClick={saveService}
+          style={{
+            width: "100%",
+            padding: 15,
+            marginTop: 15,
+            borderRadius: 10,
+            border: "none",
+            background: "#ff3b30",
+            color: "white",
+            fontSize: 16,
+            fontWeight: "bold",
+          }}
+        >
+          บันทึก Service
+        </button>
+      </div>
 
-      <button onClick={saveService}>
-        บันทึก
-      </button>
-
-      <hr />
+      <h2 style={{ marginTop: 30 }}>ประวัติ</h2>
 
       {services.map((item, index) => (
-        <div key={index}>
+        <div
+          key={index}
+          style={{
+            background: "#1e1e1e",
+            padding: 15,
+            borderRadius: 15,
+            marginBottom: 15,
+          }}
+        >
           <h3>{item.mileage} km</h3>
+
           <p>{item.detail}</p>
-          <small>{item.date}</small>
-          <hr />
+
+          <small style={{ color: "#aaa" }}>
+            {item.date}
+          </small>
         </div>
       ))}
     </div>
